@@ -26,3 +26,11 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
     - run: npm run build -- --prod
+    - name: Deploy to netlify
+      uses: nwtgck/actions-netlify@v1.0
+      env:
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        NETLIFY_SITE_ID: ${{ secrets.DEV_NETLIFY_SITE_ID }}
+      with:
+        publish-dir: dist/netlify
+        github-token: ${{ secrets.GITHUB_TOKEN }}
